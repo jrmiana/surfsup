@@ -11,7 +11,7 @@
 
 <div id="events" class="py-36 max-w-6xl mx-auto px-8">
     <h2 class="font-medium text-4xl mb-8">Check our Events</h2>
-    <div class="grid md:grid-cols-3">
+    <div class="grid md:grid-cols-3 gap-4">
         <?php
         $args = array(
             'post_type' => 'event',
@@ -22,18 +22,19 @@
         if ($posts->have_posts()) {
             while ($posts->have_posts()) {
                 $posts->the_post();
-                $date = get_post_meta(get_the_ID(), '_date')[0];
+                $date = date_create(get_post_meta(get_the_ID(), '_date')[0]);
+                $date = date_format($date, "M d Y");
                 $location = get_post_meta(get_the_ID(), '_location')[0];
                 $time = get_post_meta(get_the_ID(), '_time')[0];
                 $featured_img_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
         ?>
-                <div class="shadow-md overflow-hidden rounded-lg">
+                <div class="shadow-md overflow-hidden rounded-lg bg-white">
                     <img class="h-48 w-full object-cover" src="<?php echo $featured_img_url; ?>" alt="Event" loading="lazy">
                     <div class="p-6 flex flex-col gap-4">
                         <h4 class="text-2xl font-medium"><?php echo the_title(); ?></h4>
-                        <div class="grid grid-cols-2">
+                        <div class="grid grid-cols-3">
                             <p class="font-medium text-lg"><?php echo $date; ?></p>
-                            <div class="">
+                            <div class="col-span-2">
                                 <p class="flex gap-2 mb-2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>

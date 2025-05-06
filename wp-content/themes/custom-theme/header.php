@@ -12,7 +12,7 @@
 
 <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
-    <div id="page" class="hfeed site">
+    <div id="page" class="hfeed site ">
         <a class="screen-reader-text skip-link" href="#content"><?php _e('Skip to content', 'custom-theme'); ?></a>
         <header id="masthead" class="site-header fixed top-0 w-dvw z-10 py-10">
 

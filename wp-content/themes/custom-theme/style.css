@@ -18,3 +18,8 @@ Use it to make something cool, have fun, and share what you've learned with othe
 * {
     font-family: "Poppins", sans-serif;
 }
+
+html {
+    scroll-behavior: smooth;
+    background-color: oklch(93.2% 0.032 255.585);
+}

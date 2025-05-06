@@ -140,11 +140,6 @@ function register_event_acf_registration_link_callback($post)
     echo '<input type="text" style="width:100%" id="registration_link" name="registration_link" value="' . esc_attr($value) . '"></input>';
 }
 
-/**
- * When the post is saved, saves our custom data.
- *
- * @param int $post_id
- */
 function save_event_acf($post_id)
 {
     if (
@@ -194,3 +189,86 @@ function save_event_acf($post_id)
     update_post_meta($post_id, '_registration_link', $registration_link_data);
 }
 add_action('save_post', 'save_event_acf');
+
+
+//function referenced from https://gist.github.com/WaseemMansour/f9bbbe558e935e7c06f93ee398074221
+function show_related_posts($postType = 'post', $postID = null, $totalPosts = null, $relatedBy = null)
+{
+    global $post, $related_posts_custom_query_args;
+    if (null === $postID) $postID = $post->ID;
+    if (null === $totalPosts) $totalPosts = 4;
+    if (null === $relatedBy) $relatedBy = 'category';
+    if (null === $postType) $postType = 'post';
+
+    if ($relatedBy === 'category') {
+        $categories = get_the_category($post->ID);
+        $catidlist = '';
+        foreach ($categories as $category) {
+            $catidlist .= $category->cat_ID . ",";
+        }
+        // Build our category based custom query arguments
+        $related_posts_custom_query_args = array(
+            'post_type' => $postType,
+            'posts_per_page' => $totalPosts, // Number of related posts to display
+            'post__not_in' => array($postID), // Ensure that the current post is not displayed
+            'orderby' => 'rand', // Randomize the results
+            'cat' => $catidlist, // Select posts in the same categories as the current post
+        );
+    }
+
+    if ($relatedBy === 'tags') {
+
+        // Get the tags for the current post
+        $tags = wp_get_post_tags($postID);
+        // If the post has tags, run the related post tag query
+        if ($tags) {
+            $tag_ids = array();
+            foreach ($tags as $individual_tag) $tag_ids[] = $individual_tag->term_id;
+            // Build our tag related custom query arguments
+            $related_posts_custom_query_args = array(
+                'post_type' => $postType,
+                'tag__in' => $tag_ids, // Select posts with related tags
+                'posts_per_page' => $totalPosts, // Number of related posts to display
+                'post__not_in' => array($postID), // Ensure that the current post is not displayed
+                'orderby' => 'rand', // Randomize the results
+            );
+        } else {
+            // If the post does not have tags, run the standard related posts query
+            $related_posts_custom_query_args = array(
+                'post_type' => $postType,
+                'posts_per_page' => $totalPosts, // Number of related posts to display
+                'post__not_in' => array($postID), // Ensure that the current post is not displayed
+                'orderby' => 'rand', // Randomize the results
+            );
+        }
+    }
+
+    $custom_query = new WP_Query($related_posts_custom_query_args);
+
+?>
+    <div class="grid md:grid-cols-3 gap-4">
+        <?php
+        if ($custom_query->have_posts()) : ?>
+            <?php while ($custom_query->have_posts()) : $custom_query->the_post();
+                $featured_img_url = get_the_post_thumbnail_url(get_the_ID(), 'full');
+            ?>
+
+                <div class="shadow-md overflow-hidden rounded-lg bg-white">
+                    <img class="h-48 w-full object-cover" src="<?php echo $featured_img_url; ?>" alt="Event" loading="lazy">
+                    <div class="p-6 flex flex-col gap-4">
+                        <h4 class="text-2xl font-medium"><?php echo the_title(); ?></h4>
+                        <a href="<?php the_permalink(); ?>" class="bg-red-400 hover:bg-fuchsia-400 text-white font-bold py-2 px-4 rounded-full text-center self-end w-48">
+                            More Details
+                        </a>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+        <?php else : ?>
+
+        <?php endif;
+        ?>
+    </div>
+<?php
+
+    wp_reset_postdata();
+}
