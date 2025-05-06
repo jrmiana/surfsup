@@ -16,7 +16,7 @@ get_header(); ?>
             $reg_link = get_post_meta(get_the_ID(), '_registration_link')[0];
         ?>
             <div class="flex flex-col md:flex-row items-center md:justify-between mb-4">
-                <h1 class="text-5xl font-bold mb-4"><?php echo the_title(); ?></h1>
+                <h1 class="text-5xl font-bold mb-4 text-center"><?php echo the_title(); ?></h1>
                 <a href="<?php echo $reg_link; ?>" class="bg-red-400 hover:bg-fuchsia-400 text-white font-bold py-2 px-4 rounded-full text-center flex items-center justify-center w-48 h-12">
                     Register
                 </a>
