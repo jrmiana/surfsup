@@ -1,0 +1,64 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-custom-blocks-herowithcta {
+    // background-color: #21759b;
+    // color: #fff;
+    padding: 2px;
+}
+
+.hero-block {
+    display: grid;
+    gap: 1rem;
+
+    @media (min-width: 640px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .text-area {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+
+        h2 {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: bold;
+        }
+
+        a.hero-button {
+            cursor: pointer;
+            max-width: fit-content;
+            text-decoration: none;
+            outline: 0;
+            color: #fff;
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            display: inline-block;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            border: 1px solid transparent;
+            padding: 6px 1rem;
+            font-size: 16px;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+            :hover {
+                color: #fff;
+                background-color: #0b5ed7;
+                border-color: #0a58ca;
+            }
+
+        }
+    }
+
+    img {
+        width: 100%;
+    }
+}

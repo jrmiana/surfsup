@@ -81,7 +81,9 @@ function register_event_cpt()
         'template'              => array(),
         'template_lock'         => false,
         'taxonomies'            => array('event-category', 'category'),
-        'register_meta_box_cb'  => 'register_event_acf'
+        'register_meta_box_cb'  => 'register_event_acf',
+        'rest_base'             => 'events',
+        'rest_controller_class' => 'WP_REST_Posts_Controller',
     );
 
     register_post_type('event', $args);
@@ -189,6 +191,21 @@ function save_event_acf($post_id)
     update_post_meta($post_id, '_registration_link', $registration_link_data);
 }
 add_action('save_post', 'save_event_acf');
+
+add_action('rest_api_init', 'create_api_posts_meta_field');
+function create_api_posts_meta_field()
+{
+    register_rest_field('event', 'acf', array(
+        'get_callback' => 'get_post_meta_for_api',
+        'schema' => null,
+    ));
+}
+
+function get_post_meta_for_api($object)
+{
+    $post_id = $object['id'];
+    return get_post_meta($post_id);
+}
 
 
 //function referenced from https://gist.github.com/WaseemMansour/f9bbbe558e935e7c06f93ee398074221
