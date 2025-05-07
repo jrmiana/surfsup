@@ -1,0 +1,62 @@
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/herowithcta/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-custom-blocks-herowithcta {
+  padding: 2px;
+}
+
+.hero-block {
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .hero-block {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.hero-block .text-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+}
+.hero-block .text-area h2 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: bold;
+}
+.hero-block .text-area a.hero-button {
+  cursor: pointer;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  text-decoration: none;
+  outline: 0;
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  border: 1px solid transparent;
+  padding: 6px 1rem;
+  font-size: 16px;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.hero-block .text-area a.hero-button :hover {
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+.hero-block img {
+  width: 100%;
+}
+
+/*# sourceMappingURL=style-index.css.map*/
