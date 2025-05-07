@@ -7,7 +7,8 @@ $args = [
     'post_type' => 'event',
     'posts_per_page' => $limit,
     'order' => $order,
-    'orderby' => 'date',
+    'meta_key'       => '_date',
+    'orderby'        => 'meta_value',
 ];
 
 if ($category) {
